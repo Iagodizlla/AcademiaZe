@@ -1,4 +1,5 @@
-﻿namespace AcademiaDoZe.Domain.Exceptions;
+﻿//Iago Henrique Schlemper
+namespace AcademiaDoZe.Domain.Exceptions;
 
 public class DomainException : Exception
 {

@@ -1,6 +1,6 @@
-﻿using AcademiaDoZe.Domain.Exceptions;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Domain.Exceptions;
 using AcademiaDoZe.Domain.Services;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AcademiaDoZe.Domain.Entities;
 

@@ -1,4 +1,5 @@
-﻿using AcademiaDoZe.Domain.Enum;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Domain.Enum;
 using AcademiaDoZe.Domain.Exceptions;
 using AcademiaDoZe.Domain.Services;
 

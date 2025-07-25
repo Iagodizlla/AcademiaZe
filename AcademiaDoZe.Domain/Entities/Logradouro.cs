@@ -1,4 +1,5 @@
-﻿using AcademiaDoZe.Domain.Exceptions;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Domain.Exceptions;
 using AcademiaDoZe.Domain.Services;
 
 namespace AcademiaDoZe.Domain.Entities;

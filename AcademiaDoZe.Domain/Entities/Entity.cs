@@ -1,4 +1,5 @@
-﻿namespace AcademiaDoZe.Domain.Entities;
+﻿//Iago Henrique Schlemper
+namespace AcademiaDoZe.Domain.Entities;
 
 public abstract class Entity
 {
