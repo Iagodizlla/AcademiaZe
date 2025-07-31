@@ -1,7 +1,6 @@
-﻿//Iago Henrique Schlemper
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace AcademiaDoZe.Domain.Enum;
+namespace AcademiaDoZe.Domain.Enums;
 
 public enum EColaboradorTipo
 {

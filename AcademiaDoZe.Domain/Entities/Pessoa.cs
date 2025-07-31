@@ -1,4 +1,5 @@
-﻿//Iago Henrique Schlemper
+﻿using AcademiaDoZe.Domain.ValueObjects;
+
 namespace AcademiaDoZe.Domain.Entities;
 
 public abstract class Pessoa : Entity
@@ -13,7 +14,8 @@ public abstract class Pessoa : Entity
     public string Complemento { get; protected set; }
     public string Senha { get; protected set; }
     public Arquivo Foto { get; protected set; }
-    protected Pessoa(string nome, string cpf, DateOnly dataNascimento, string telefone, string email, Logradouro endereco, string numero, string complemento, string senha, Arquivo foto) : base()
+    protected Pessoa(string nome, string cpf, DateOnly dataNascimento, string telefone,  string email,
+        Logradouro endereco, string numero, string complemento, string senha, Arquivo foto) : base()
     {
         Nome = nome;
         Cpf = cpf;
