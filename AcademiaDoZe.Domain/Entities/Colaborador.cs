@@ -25,8 +25,7 @@ public class Colaborador : Pessoa
     // método de fábrica, ponto de entrada para criar um objeto válido
     public static Colaborador Criar(string nome, string cpf, DateOnly dataNascimento, string telefone, string email,
         Logradouro endereco, string numero, string complemento, string senha, Arquivo foto, DateOnly dataAdmissao,
-        EColaboradorTipo tipo,
-    EColaboradorVinculo vinculo)
+        EColaboradorTipo tipo, EColaboradorVinculo vinculo)
     {
         // Validações e normalizações
         if (NormalizadoService.TextoVazioOuNulo(nome)) throw new DomainException("NOME_OBRIGATORIO");
