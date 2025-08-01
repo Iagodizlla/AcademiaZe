@@ -1,4 +1,5 @@
-﻿using AcademiaDoZe.Domain.Enums;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Domain.Enums;
 using AcademiaDoZe.Domain.Exceptions;
 
 namespace AcademiaDoZe.Domain.Entities;

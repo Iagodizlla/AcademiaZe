@@ -1,3 +1,4 @@
+//Iago Henrique Schlemper
 using AcademiaDoZe.Domain.Entities;
 using AcademiaDoZe.Domain.Exceptions;
 

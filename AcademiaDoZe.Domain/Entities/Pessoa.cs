@@ -1,4 +1,5 @@
-﻿using AcademiaDoZe.Domain.ValueObjects;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Domain.ValueObjects;
 
 namespace AcademiaDoZe.Domain.Entities;
 

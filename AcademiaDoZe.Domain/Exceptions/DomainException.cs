@@ -1,4 +1,5 @@
-﻿namespace AcademiaDoZe.Domain.Exceptions;
+﻿//Iago Henrique Schlemper
+namespace AcademiaDoZe.Domain.Exceptions;
 
 // classe base para exceções de domínio
 // permitindo exceções específicas de regras de negócio
