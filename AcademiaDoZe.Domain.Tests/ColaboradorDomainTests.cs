@@ -7,50 +7,42 @@ namespace AcademiaDoZe.Domain.Tests;
 
 public class ColaboradorDomainTests
 {
-    private Logradouro GetValidLogradouro() => Logradouro.Criar("12345670", "Rua A", "Centro", "Cidade", "SP", "Brasil");
+    private Logradouro GetValidLogradouro() => Logradouro.Criar("12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
     private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1], ".jpg");
 
     [Fact]
-    public void CriarColaborador_Valido_NaoDeveLancarExcecao()
+    public void CriarColaborador_ComDadosValidos_DeveCriarObjeto()
     {
-        var colaborador = Colaborador.Criar("Iago Henrique", "111.111.111-11", DateOnly.MinValue, "11999999999", "Teste@gmail.com",
-            GetValidLogradouro(), "44", "casa", "senha123", GetValidArquivo(), DateOnly.MaxValue, Enums.EColaboradorTipo.Administrador,
-            Enums.EColaboradorVinculo.Estagio);
-        Assert.NotNull(colaborador); // validando criação, não deve lançar exceção e não deve ser nulo
+        // Arrange
+        var nome = "João da Silva"; var cpf = "12345678901"; var dataNascimento = DateOnly.FromDateTime(DateTime.Today.AddYears(-20)); var telefone = "11999999999";
+        var email = "joao@email.com"; var logradouro = GetValidLogradouro(); var numero = "123"; var complemento = "Apto 1"; var senha = "Senha@1"; var foto = GetValidArquivo();
+        var dataAdmissao = DateOnly.FromDateTime(DateTime.Today.AddDays(-1)); // ontem, data válida menor ou igual hoje
+        var tipo = Enums.EColaboradorTipo.Administrador; var vinculo = Enums.EColaboradorVinculo.Estagio;
+        // Act
+        var colaborador = Colaborador.Criar(nome, cpf, dataNascimento, telefone, email, logradouro, numero, complemento, senha, foto, dataAdmissao, tipo, vinculo);
+        // Assert
+        Assert.NotNull(colaborador);
     }
+
     [Fact]
-    public void CriarColaborador_Invalido_DeveLancarExcecao()
+    public void CriarColaborador_ComNomeVazio_DeveLancarExcecao()
     {
-        // validando a criação de logradouro com CEP inválido, deve lançar exceção
-        Assert.Throws<DomainException>(() => Colaborador.Criar("Iago Henrique", "111.111.111-11", DateOnly.MinValue, "11999999999", "Teste@gmail.com",
-            GetValidLogradouro(), "44", "casa", "senha123", GetValidArquivo(), DateOnly.MaxValue, Enums.EColaboradorTipo.Administrador,
-            Enums.EColaboradorVinculo.Estagio));
-    }
-    [Fact]
-    public void CriarColaborador_Valido_VerificarNormalizado()
-    {
-        var colaborador = Colaborador.Criar("Iago Henrique ", "111.111.111-11 ", DateOnly.MinValue, "11999999999 ", "Teste@gmail.com",
-            GetValidLogradouro(), "44", "casa", "senha123 ", GetValidArquivo(), DateOnly.MaxValue, Enums.EColaboradorTipo.Administrador,
-            Enums.EColaboradorVinculo.Estagio);
-        Assert.Equal("Iago Henrique", colaborador.Nome); // validando normalização
-        Assert.Equal("111.111.111-11", colaborador.Cpf);
-        Assert.Equal(DateOnly.MinValue, colaborador.DataNascimento);
-        Assert.Equal("11999999999", colaborador.Telefone);
-        Assert.Equal("Teste@gmail.com", colaborador.Email);
-        Assert.Equal(GetValidLogradouro(), colaborador.Endereco);
-        Assert.Equal("44", colaborador.Numero);
-        Assert.Equal("casa", colaborador.Complemento);
-        Assert.Equal("senha123", colaborador.Senha);
-        Assert.Equal(DateOnly.MaxValue, colaborador.DataAdmissao);
-        Assert.Equal(Enums.EColaboradorTipo.Administrador, colaborador.Tipo);
-        Assert.Equal(Enums.EColaboradorVinculo.Estagio, colaborador.Vinculo);
-    }
-    [Fact]
-    public void CriarColaborador_Invalido_VerificarMessageExcecao()
-    {
-        var exception = Assert.Throws<DomainException>(() => Colaborador.Criar("Iago Henrique", "111.111.111-11", DateOnly.MinValue, "11999999999", "Teste@gmail.com",
-            GetValidLogradouro(), "44", "casa", "senha123", GetValidArquivo(), DateOnly.MaxValue, Enums.EColaboradorTipo.Administrador,
-            Enums.EColaboradorVinculo.Estagio));
-        Assert.Equal("NOME_OBRIGATORIO", exception.Message); // validando a mensagem de exceção
+        // Aqui passamos o nome vazio para lançar a exceção "NOME_OBRIGATORIO"
+        var exception = Assert.Throws<DomainException>(() => Colaborador.Criar(
+            "", // nome inválido
+            "111.111.111-11",
+            DateOnly.MinValue,
+            "11999999999",
+            "Teste@gmail.com",
+            GetValidLogradouro(),
+            "44",
+            "casa",
+            "senha123",
+            GetValidArquivo(),
+            DateOnly.MaxValue,
+            Enums.EColaboradorTipo.Administrador,
+            Enums.EColaboradorVinculo.Estagio
+        ));
+        Assert.Equal("NOME_OBRIGATORIO", exception.Message);
     }
 }

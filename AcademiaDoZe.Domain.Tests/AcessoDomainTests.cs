@@ -18,8 +18,12 @@ public class AcessoDomainTests
     [Fact]
     public void CriarAcesso_Valido_NaoDeveLancarExcecao()
     {
-        var acesso = Acesso.Criar(EPessoaTipo.Colaborador, GetValidPessoa2(), DateTime.Now);
-        Assert.NotNull(acesso); // validando criação de acesso, não deve lançar exceção e não deve ser nulo
+        var pessoa = GetValidPessoa2();
+        var horarioValido = DateTime.Today.AddHours(10); // 10:00 da manhã do mesmo dia
+
+        var acesso = Acesso.Criar(EPessoaTipo.Colaborador, pessoa, horarioValido);
+
+        Assert.NotNull(acesso);
     }
 
     [Fact]
@@ -31,16 +35,22 @@ public class AcessoDomainTests
     [Fact]
     public void CriarAcesso_Valido_VerificarNormalizado()
     {
-        var acesso = Acesso.Criar(EPessoaTipo.Colaborador, GetValidPessoa2(), DateTime.Now);
-        Assert.Equal(EPessoaTipo.Colaborador, acesso.Tipo); // validando tipo de pessoa
-        Assert.Equal(GetValidPessoa2(), acesso.AlunoColaborador); // validando pessoa associada ao acesso
-        Assert.InRange(acesso.DataHora, DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)); // validando data e hora do acesso
+        var pessoa = GetValidPessoa2();
+        var horarioValido = DateTime.Now.AddHours(1); // 1 hora no futuro
+
+        var acesso = Acesso.Criar(EPessoaTipo.Colaborador, pessoa, horarioValido);
+
+        Assert.Equal(EPessoaTipo.Colaborador, acesso.Tipo);
+        Assert.Equal(pessoa, acesso.AlunoColaborador);
+        Assert.Equal(horarioValido, acesso.DataHora);
     }
 
     [Fact]
-    public void CriarAcesso_Invalido_VerificarMessageExcecao()
+    public void CriarAcesso_ComPessoaNula_DeveLancarExcecao()
     {
-        var exception = Assert.Throws<DomainException>(() => Acesso.Criar(EPessoaTipo.Aluno, GetValidPessoa1(), DateTime.Now));
-        Assert.Equal("PESSOA_OBRIGATORIA", exception.Message); // validando a mensagem de exceção para pessoa nula
+        var ex = Assert.Throws<DomainException>(() =>
+            Acesso.Criar(EPessoaTipo.Aluno, null, DateTime.Now)
+        );
+        Assert.Equal("PESSOA_OBRIGATORIA", ex.Message);
     }
 }
