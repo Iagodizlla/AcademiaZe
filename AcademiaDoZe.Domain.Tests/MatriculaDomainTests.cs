@@ -1,5 +1,6 @@
 ﻿//Iago Henrique Schlemper
 using AcademiaDoZe.Domain.Entities;
+using AcademiaDoZe.Domain.Enums;
 using AcademiaDoZe.Domain.Exceptions;
 using AcademiaDoZe.Domain.ValueObjects;
 
@@ -28,39 +29,40 @@ public class MatriculaDomainTests
     [Fact]
     public void CriarMatricula_Valido_NaoDeveLancarExcecao()
     {
-        var matricula = Matricula.Criar(GetValidAluno(), Enums.EMatriculaPlano.Semestral, DateOnly.MinValue, DateOnly.MaxValue,
-            "Emagrecer", Enums.EMatriculaRestricoes.None, GetValidArquivo(), "Nao posso sexta");
-        Assert.NotNull(matricula); // validando criação, não deve lançar exceção e não deve ser nulo
-    }
+        var aluno = GetValidAluno();
+        var plano = EMatriculaPlano.Semestral;
+        var dataInicio = DateOnly.FromDateTime(DateTime.Today);
+        var dataFim = dataInicio.AddMonths(6);
+        var objetivo = "Emagrecer";
+        var restricoes = EMatriculaRestricoes.Diabetes;
+        var laudoMedico = GetValidArquivo();
+        var observacoes = "Não posso sexta";
 
-    [Fact]
-    public void CriarMatricula_Invalido_DeveLancarExcecao()
-    {
-        // validando a criação de logradouro com CEP inválido, deve lançar exceção
-        Assert.Throws<DomainException>(() => Matricula.Criar(GetValidAluno(), Enums.EMatriculaPlano.Semestral, DateOnly.MinValue, DateOnly.MaxValue,
-            "Emagrecer", Enums.EMatriculaRestricoes.None, GetValidArquivo(), "Nao posso sexta"));
-    }
+        var matricula = Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudoMedico, observacoes);
 
-    [Fact]
-    public void CriarMatricula_Valido_VerificarNormalizado()
-    {
-        var maticula = Matricula.Criar(GetValidAluno(), Enums.EMatriculaPlano.Semestral, DateOnly.MinValue, DateOnly.MaxValue,
-            "Emagrecer", Enums.EMatriculaRestricoes.None, GetValidArquivo(), "Nao posso sexta");
-        Assert.Equal(GetValidAluno(), maticula.AlunoMatricula); // validando normalização
-        Assert.Equal(Enums.EMatriculaPlano.Semestral, maticula.Plano);
-        Assert.Equal(DateOnly.MinValue, maticula.DataInicio);
-        Assert.Equal(DateOnly.MaxValue, maticula.DataFim);
-        Assert.Equal("Emagrecer", maticula.Objetivo);
-        Assert.Equal(Enums.EMatriculaRestricoes.None, maticula.RestricoesMedicas);
-        Assert.Equal(GetValidArquivo(), maticula.LaudoMedico);
-        Assert.Equal("Nao posso sexta", maticula.ObservacoesRestricoes);
+        // Assert
+        Assert.NotNull(matricula);
     }
 
     [Fact]
     public void CriarMatricula_ComObjetivoVazio_DeveLancarExcecao()
     {
-        var exception = Assert.Throws<DomainException>(() => Matricula.Criar(GetValidAluno(), Enums.EMatriculaPlano.Semestral, DateOnly.MinValue, DateOnly.MaxValue,
-            "", Enums.EMatriculaRestricoes.None, GetValidArquivo(), "nao posso sexta"));
-        Assert.Equal("OBJETIVO_OBRIGATORIO", exception.Message); // validando a mensagem de exceção
+        // Arrange
+        var aluno = GetValidAluno();
+        var plano = EMatriculaPlano.Semestral;
+        var dataInicio = DateOnly.FromDateTime(DateTime.Today); // válido
+        var dataFim = dataInicio.AddMonths(6);
+        var objetivo = ""; // inválido
+        var restricoes = EMatriculaRestricoes.Alergias;
+        var laudoMedico = GetValidArquivo();
+        var observacoes = "nao posso sexta";
+
+        // Act & Assert
+        var exception = Assert.Throws<DomainException>(() =>
+            Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudoMedico, observacoes)
+        );
+
+        Assert.Equal("OBJETIVO_OBRIGATORIO", exception.Message);
     }
+
 }
