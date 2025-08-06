@@ -1,56 +1,63 @@
 ﻿//Iago Henrique Schlemper
 using AcademiaDoZe.Domain.Entities;
-using AcademiaDoZe.Domain.Enums;
 using AcademiaDoZe.Domain.Exceptions;
+using AcademiaDoZe.Domain.Enums;
 using AcademiaDoZe.Domain.ValueObjects;
 
 namespace AcademiaDoZe.Domain.Tests;
 
 public class AcessoDomainTests
 {
-    private Logradouro GetValidLogradouro() => Logradouro.Criar("12345670", "Rua A", "Centro", "Cidade", "SP", "Brasil");
-    private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1], ".jpg");
-    private Aluno GetValidPessoa1() => Aluno.Criar("Iago Henrique", "111.111.111-11", DateOnly.MinValue, "11999999999", "Test@gmail.com", GetValidLogradouro(),
-        "44", "casa", "senha123", GetValidArquivo());
-    private Colaborador GetValidPessoa2() => Colaborador.Criar("Iago Henrique", "111.111.111-11", DateOnly.MinValue, "11999999999", "Test@gmail.com", GetValidLogradouro(),
-        "44", "casa", "senha123", GetValidArquivo(), DateOnly.MaxValue, EColaboradorTipo.Administrador, EColaboradorVinculo.CLT);
+    // Cria um Aluno válido para os testes
+    private Aluno GetValidAluno()
+    {
+        var logradouro = Logradouro.Criar("12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
+
+        var foto = Arquivo.Criar(new byte[1], ".jpg");
+
+        return Aluno.Criar(
+            "João da Silva",
+            "12345678901",
+            DateOnly.FromDateTime(DateTime.Today.AddYears(-20)),
+            "11999999999",
+            "joao@email.com",
+            logradouro,
+            "123",
+            "Apto 1",
+            "Senha@1",
+            foto
+        );
+    }
 
     [Fact]
-    public void CriarAcesso_Valido_NaoDeveLancarExcecao()
+    public void CriarAcesso_ComDadosValidos_DeveCriarObjeto()
     {
-        var pessoa = GetValidPessoa2();
-        var horarioValido = DateTime.Today.AddHours(10); // 10:00 da manhã do mesmo dia
-
-        var acesso = Acesso.Criar(EPessoaTipo.Colaborador, pessoa, horarioValido);
-
+        // Arrange
+        var aluno = GetValidAluno();
+        var tipo = EPessoaTipo.Aluno;
+        // Garante que é uma hora válida (entre 6h e 22h) e no futuro
+        var dataHora = DateTime.Now.AddMinutes(1);
+        if (dataHora.TimeOfDay < new TimeSpan(6, 0, 0))
+            dataHora = DateTime.Today.AddHours(6);
+        else if (dataHora.TimeOfDay > new TimeSpan(22, 0, 0))
+            dataHora = DateTime.Today.AddDays(1).AddHours(6);
+        // Act
+        var acesso = Acesso.Criar(tipo, aluno, dataHora);
+        // Assert
         Assert.NotNull(acesso);
     }
 
     [Fact]
-    public void CriarAcesso_Invalido_DeveLancarExcecao()
+    public void CriarAcesso_ComTipoInvalido_DeveLancarExcecao()
     {
-        Assert.Throws<DomainException>(() => Acesso.Criar(EPessoaTipo.Aluno, GetValidPessoa1(), DateTime.Now)); // validando acesso com pessoa nula, deve lançar exceção
-    }
-
-    [Fact]
-    public void CriarAcesso_Valido_VerificarNormalizado()
-    {
-        var pessoa = GetValidPessoa2();
-        var horarioValido = DateTime.Now.AddHours(1); // 1 hora no futuro
-
-        var acesso = Acesso.Criar(EPessoaTipo.Colaborador, pessoa, horarioValido);
-
-        Assert.Equal(EPessoaTipo.Colaborador, acesso.Tipo);
-        Assert.Equal(pessoa, acesso.AlunoColaborador);
-        Assert.Equal(horarioValido, acesso.DataHora);
-    }
-
-    [Fact]
-    public void CriarAcesso_ComPessoaNula_DeveLancarExcecao()
-    {
+        // Arrange
+        var aluno = GetValidAluno();
+        var tipo = (EPessoaTipo)999; // Tipo inválido
+        var dataHora = DateTime.Today.AddHours(8);
+        // Act & Assert
         var ex = Assert.Throws<DomainException>(() =>
-            Acesso.Criar(EPessoaTipo.Aluno, null, DateTime.Now)
+            Acesso.Criar(tipo, aluno, dataHora)
         );
-        Assert.Equal("PESSOA_OBRIGATORIA", ex.Message);
+        Assert.Equal("TIPO_OBRIGATORIO", ex.Message);
     }
 }

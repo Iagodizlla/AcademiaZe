@@ -64,5 +64,4 @@ public class MatriculaDomainTests
 
         Assert.Equal("OBJETIVO_OBRIGATORIO", exception.Message);
     }
-
 }
