@@ -11,7 +11,7 @@ public class MatriculaDomainTests
     private Logradouro GetValidLogradouro()
     => Logradouro.Criar("12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
 
-    private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1], ".jpg");
+    private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1]);
 
     private Aluno GetValidAluno() => Aluno.Criar(
             "Iago Henrique",                  // Nome

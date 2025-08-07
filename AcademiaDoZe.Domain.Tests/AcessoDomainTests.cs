@@ -13,7 +13,7 @@ public class AcessoDomainTests
     {
         var logradouro = Logradouro.Criar("12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
 
-        var foto = Arquivo.Criar(new byte[1], ".jpg");
+        var foto = Arquivo.Criar(new byte[1]);
 
         return Aluno.Criar(
             "João da Silva",

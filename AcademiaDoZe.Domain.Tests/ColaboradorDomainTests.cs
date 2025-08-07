@@ -8,7 +8,7 @@ namespace AcademiaDoZe.Domain.Tests;
 public class ColaboradorDomainTests
 {
     private Logradouro GetValidLogradouro() => Logradouro.Criar("12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
-    private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1], ".jpg");
+    private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1]);
 
     [Fact]
     public void CriarColaborador_ComDadosValidos_DeveCriarObjeto()

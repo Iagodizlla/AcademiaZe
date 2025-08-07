@@ -10,7 +10,7 @@ public class AlunoDomainTests
     // Padrão AAA (Arrange, Act, Assert)
     // Arrange (Organizar): Preparamos tudo que o teste precisa.
     private Logradouro GetValidLogradouro() => Logradouro.Criar("12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
-    private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1], ".jpg");
+    private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1]);
     [Fact] // [Fact] é um atributo que marca este método como um teste para o xUnit.
     public void CriarAluno_ComDadosValidos_DeveCriarObjeto() // Padrão de Nomenclatura: MetodoTestado_Cenario_ResultadoEsperado
     {
