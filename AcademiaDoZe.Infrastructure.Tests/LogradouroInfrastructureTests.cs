@@ -1,4 +1,5 @@
-﻿using AcademiaDoZe.Domain.Entities;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Domain.Entities;
 using AcademiaDoZe.Infrastructure.Repositories;
 
 namespace AcademiaDoZe.Infrastructure.Tests;
