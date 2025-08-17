@@ -53,7 +53,7 @@ public class Colaborador : Pessoa
         if (dataAdmissao > DateOnly.FromDateTime(DateTime.Today)) throw new DomainException("DATA_ADMISSAO_MAIOR_ATUAL");
         if (!Enum.IsDefined(tipo)) throw new DomainException("TIPO_COLABORADOR_INVALIDO");
         if (!Enum.IsDefined(vinculo)) throw new DomainException("VINCULO_COLABORADOR_INVALIDO");
-        if (tipo == EColaboradorTipo.Administrador && vinculo == EColaboradorVinculo.CLT) throw new DomainException("ADMINISTRADOR_CLT_INVALIDO");
+        if (tipo == EColaboradorTipo.Administrador && vinculo != EColaboradorVinculo.CLT) throw new DomainException("ADMINISTRADOR_CLT_INVALIDO");
         // Cpf único - vamos depender da persistência dos dados
         // criação e retorno do objeto
         return new Colaborador(nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto,

@@ -1,8 +1,8 @@
-﻿//Iago Henrique Schlemper
-using AcademiaDoZe.Domain.Entities;
+﻿using AcademiaDoZe.Domain.Entities;
 using AcademiaDoZe.Infrastructure.Repositories;
+using AcademiaDoZe.Infrastructure.Tests;
 
-namespace AcademiaDoZe.Infrastructure.Tests;
+namespace AcademiaDoZe.Infrastructure.Tests_;
 
 public class LogradouroInfrastructureTests : TestBase
 {
@@ -47,6 +47,7 @@ public class LogradouroInfrastructureTests : TestBase
         Assert.Equal("Rua Atualizada", resultadoAtualizacao.Nome);
 
     }
+
     [Fact]
     public async Task Logradouro_ObterPorCep_Remover_ObterPorId()
     {
