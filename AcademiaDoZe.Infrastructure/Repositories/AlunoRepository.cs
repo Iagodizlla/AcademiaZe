@@ -22,7 +22,7 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
             var logradouroRepository = new LogradouroRepository(_connectionString, _databaseType);
             var logradouro = await logradouroRepository.ObterPorId(logradouroId) ?? throw new InvalidOperationException($"Logradouro com ID {logradouroId} não encontrado.");
             // Cria o objeto Colaborador usando o método de fábrica
-            var colaborador = Aluno.Criar(
+            var aluno = Aluno.Criar(
             cpf: reader["cpf"].ToString()!,
             telefone: reader["telefone"].ToString()!,
             nome: reader["nome"].ToString()!,
@@ -36,8 +36,8 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
             );
             // Define o ID usando reflection
             var idProperty = typeof(Entity).GetProperty("Id");
-            idProperty?.SetValue(colaborador, Convert.ToInt32(reader["id_colaborador"]));
-            return colaborador;
+            idProperty?.SetValue(aluno, Convert.ToInt32(reader["id_aluno"]));
+            return aluno;
         }
         catch (DbException ex) { throw new InvalidOperationException($"Erro ao mapear dados do colaborador: {ex.Message}", ex); }
     }
@@ -103,7 +103,7 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
             + "numero = @Numero, "
             + "complemento = @Complemento, "
             + "senha = @Senha, "
-            + "foto = @Foto, "
+            + "foto = @Foto "
             + "WHERE id_aluno = @Id";
             await using var command = DbProvider.CreateCommand(query, connection);
             command.Parameters.Add(DbProvider.CreateParameter("@Id", entity.Id, DbType.Int32, _databaseType));
@@ -159,10 +159,12 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
         {
             await using var connection = await GetOpenConnectionAsync();
             string query = $"UPDATE {TableName} SET senha = @NovaSenha WHERE id_aluno = @Id";
+
             await using var command = DbProvider.CreateCommand(query, connection);
-            command.Parameters.Add(DbProvider.CreateParameter("@Id", id, DbType.Int32, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@NovaSenha", novaSenha, DbType.String, _databaseType));
-            var linhasAfetadas = await command.ExecuteNonQueryAsync();
+            command.Parameters.Add(DbProvider.CreateParameter("?@NovaSenha", novaSenha, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("?@Id", id, DbType.Int32, _databaseType));
+
+            int linhasAfetadas = await command.ExecuteNonQueryAsync();
             return linhasAfetadas > 0;
         }
         catch (DbException ex)

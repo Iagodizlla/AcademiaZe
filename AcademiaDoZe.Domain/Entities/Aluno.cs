@@ -25,7 +25,7 @@ public class Aluno : Pessoa
         cpf = NormalizadoService.LimparEDigitos(cpf);
         if (cpf.Length != 11) throw new DomainException("CPF_DIGITOS");
         if (dataNascimento == default) throw new DomainException("DATA_NASCIMENTO_OBRIGATORIO");
-        if (dataNascimento > DateOnly.FromDateTime(DateTime.Today.AddYears(-12))) throw new DomainException("DATA_NASCIMENTO_MINIMA_INVALIDA");
+        //if (dataNascimento > DateOnly.FromDateTime(DateTime.Today.AddYears(-12))) throw new DomainException("DATA_NASCIMENTO_MINIMA_INVALIDA");
         if (NormalizadoService.TextoVazioOuNulo(telefone)) throw new DomainException("TELEFONE_OBRIGATORIO");
         telefone = NormalizadoService.LimparEDigitos(telefone);
         if (telefone.Length != 11) throw new DomainException("TELEFONE_DIGITOS");

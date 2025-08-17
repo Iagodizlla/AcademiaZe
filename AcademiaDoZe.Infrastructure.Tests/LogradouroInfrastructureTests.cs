@@ -9,7 +9,7 @@ public class LogradouroInfrastructureTests : TestBase
     [Fact]
     public async Task Logradouro_Adicionar()
     {
-        var _cep = "12345678";
+        var _cep = "12345698";
         // Adicionar
 
         var logradouro = Logradouro.Criar(_cep, "Rua dos Testes", "Bairro Teste", "Cidade Teste", "TS", "Pais teste");
@@ -23,7 +23,7 @@ public class LogradouroInfrastructureTests : TestBase
     [Fact]
     public async Task Logradouro_ObterPorCep_Atualizar()
     {
-        var _cep = "12345678";
+        var _cep = "12345698";
         // ObterPorCep - existente para edição
 
         var repoLogradouroBuscaCep = new LogradouroRepository(ConnectionString, DatabaseType);
@@ -51,7 +51,7 @@ public class LogradouroInfrastructureTests : TestBase
     [Fact]
     public async Task Logradouro_ObterPorCep_Remover_ObterPorId()
     {
-        var _cep = "12345678";
+        var _cep = "12345698";
         // ObterPorCep
 
         var repoLogradouroBuscaCep = new LogradouroRepository(ConnectionString, DatabaseType);
