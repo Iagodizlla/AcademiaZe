@@ -59,7 +59,7 @@ dotnet build --configuration Release
 5. Para executar o projeto compilando em tempo real
    
 ```
-dotnet run --project GeradorDeTestes.ConsoleApp
+dotnet run --project AcademiaDoZe.ConsoleApp
 ```
 
 6. Para executar o arquivo compilado, navegue até a pasta `./AcademiaDoZe.WebApp/bin/Release/net8.0/` e execute o arquivo:
