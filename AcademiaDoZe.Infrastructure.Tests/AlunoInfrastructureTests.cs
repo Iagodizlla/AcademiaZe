@@ -14,7 +14,7 @@ public class AlunoInfrastructureTests : TestBase
         Logradouro? logradouro = await repoLogradouro.ObterPorId(logradouroId);
 
         Arquivo arquivo = Arquivo.Criar(new byte[] { 1, 2, 3 });
-        var _cpf = "12345678952";
+        var _cpf = "12346678952";
 
         var repoAlunoCpf = new AlunoRepository(ConnectionString, DatabaseType);
         var cpfExistente = await repoAlunoCpf.CpfJaExiste(_cpf);
@@ -42,7 +42,7 @@ public class AlunoInfrastructureTests : TestBase
     [Fact]
     public async Task Aluno_ObterPorCpf_Atualizar()
     {
-        var _cpf = "12345678951";
+        var _cpf = "12346678952";
         Arquivo arquivo = Arquivo.Criar(new byte[] { 1, 2, 3 });
 
         var repoAlunoObterPorCpf = new AlunoRepository(ConnectionString, DatabaseType);
@@ -93,7 +93,7 @@ public class AlunoInfrastructureTests : TestBase
     [Fact]
     public async Task Aluno_Remover_ObterPorId()
     {
-        var _cpf = "12345678951";
+        var _cpf = "12346678952";
         var repoAluno = new AlunoRepository(ConnectionString, DatabaseType);
         var alunoExistente = await repoAluno.ObterPorCpf(_cpf);
         Assert.NotNull(alunoExistente);
