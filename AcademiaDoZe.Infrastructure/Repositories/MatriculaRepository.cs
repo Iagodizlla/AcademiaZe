@@ -114,12 +114,13 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
         }
     }
 
-    public async Task<IEnumerable<Matricula>> ObterAtivas()
+    public async Task<IEnumerable<Matricula>> ObterAtivas(int idAluno = 0)
     {
         try
         {
             await using var connection = await GetOpenConnectionAsync();
-            string query = $"SELECT * FROM {TableName} WHERE data_fim > @Hoje";
+            string query = $"SELECT * FROM {TableName} WHERE data_fim >{(_databaseType == DatabaseType.SqlServer ? "GETDATE()" :
+"CURRENT_DATE()")} {(idAluno > 0 ? "AND aluno_id = @id" : "")} ";
 
             await using var command = DbProvider.CreateCommand(query, connection);
 
