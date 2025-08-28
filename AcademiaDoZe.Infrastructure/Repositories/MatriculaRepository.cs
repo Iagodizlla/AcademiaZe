@@ -27,9 +27,9 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
                 dataInicio: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_inicio"])),
                 dataFim: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_fim"])),
                 objetivo: reader["objetivo"].ToString(),
-                restricoesMedicas: (EMatriculaRestricoes)Convert.ToInt32(reader["restricoes_medicas"]),
+                restricoesMedicas: (EMatriculaRestricoes)Convert.ToInt32(reader["restricao_medica"]),
                 laudoMedico: reader["laudo_medico"] is DBNull ? null : Arquivo.Criar((byte[])reader["laudo_medico"]),
-                observacoesRestricoes: reader["observacoes_restricoes"]?.ToString() ?? string.Empty
+                observacoesRestricoes: reader["obs_restricao"]?.ToString() ?? string.Empty
             );
             // Define o ID usando reflection
             var idProperty = typeof(Entity).GetProperty("Id");
@@ -46,19 +46,20 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
         {
             await using var connection = await GetOpenConnectionAsync();
             string query = _databaseType == DatabaseType.SqlServer
-            ? $"INSERT INTO {TableName} (aluno, plano, data_inicio, data_fim, objetivo, restricoes_medicas, laudo_medico, observacoes_restricoes) "
+            ? $"INSERT INTO {TableName} (aluno_id, colaborador_id, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
             + "OUTPUT INSERTED.id_matricula "
-            + "VALUES (@Aluno, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes);"
-            : $"INSERT INTO {TableName} (aluno, plano, data_inicio, data_fim, objetivo, restricoes_medicas, laudo_medico, observacoes_restricoes) "
-            + "VALUES (@Aluno, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes); "
+            + "VALUES (@Aluno, @Colaborador, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes);"
+            : $"INSERT INTO {TableName} (aluno_id, colaborador_id, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
+            + "VALUES (@Aluno, @Colaborador, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes); "
             + "SELECT LAST_INSERT_ID();";
             await using var command = DbProvider.CreateCommand(query, connection);
-            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.AlunoMatricula.Id, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Plano", entity.Plano, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim, DbType.Date, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.ColaboradorMatricula.Id, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Colaborador", 1, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Plano", (int)entity.Plano, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Objetivo", entity.Objetivo, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", entity.RestricoesMedicas, DbType.Int32, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", (int)entity.RestricoesMedicas, DbType.Int32, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.LaudoMedico, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Observacoes_restricoes", (object)entity.ObservacoesRestricoes ?? DBNull.Value, DbType.String, _databaseType));
             var id = await command.ExecuteScalarAsync();
@@ -79,24 +80,27 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
         {
             await using var connection = await GetOpenConnectionAsync();
             string query = $"UPDATE {TableName} "
-            + "SET aluno = @Aluno, "
+            + "SET aluno_id = @Aluno, "
+            + "colaborador_id = @Colaborador,"
             + "plano = @Plano, "
             + "data_inicio = @Data_inicio, "
             + "data_fim = @Data_fim, "
             + "objetivo = @Objetivo, "
-            + "restricoes_medicas = @Restricoes_medicas, "
+            + "restricao_medica = @Restricoes_medicas, "
             + "laudo_medico = @Laudo_medico, "
-            + "observacoes_restricoes = @Observacoes_restricoes "
-            + "WHERE id_matrcula = @Id";
+            + "obs_restricao = @Observacoes_restricoes "
+            + "WHERE id_matricula = @Id";
             await using var command = DbProvider.CreateCommand(query, connection);
-            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.AlunoMatricula.Id, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Plano", entity.Plano, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim, DbType.Date, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.ColaboradorMatricula.Id, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Colaborador", 1, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Plano", (int)entity.Plano, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Objetivo", entity.Objetivo, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", entity.RestricoesMedicas, DbType.Int32, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Restricoes_medicas", (int)entity.RestricoesMedicas, DbType.Int32, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Laudo_medico", entity.LaudoMedico, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Observacoes_restricoes", (object)entity.ObservacoesRestricoes ?? DBNull.Value, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Id", entity.Id, DbType.Int32, _databaseType));
             int rowsAffected = await command.ExecuteNonQueryAsync();
             if (rowsAffected == 0)
             {
@@ -143,17 +147,22 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
         }
     }
 
-
     public async Task<IEnumerable<Matricula>?> ObterPorAluno(int alunoId)
     {
         try
         {
             await using var connection = await GetOpenConnectionAsync();
-            string query = $"SELECT * FROM {TableName} WHERE aluno = @Aluno";
+            string query = $"SELECT * FROM {TableName} WHERE aluno_id = @Aluno";
             await using var command = DbProvider.CreateCommand(query, connection);
             command.Parameters.Add(DbProvider.CreateParameter("@Aluno", alunoId, DbType.String, _databaseType));
             using var reader = await command.ExecuteReaderAsync();
-            return (IEnumerable<Matricula>?)(await reader.ReadAsync() ? await MapAsync(reader) : null);
+            var resultados = new List<Matricula>();
+            while (await reader.ReadAsync())
+            {
+                resultados.Add(await MapAsync(reader));
+            }
+            return resultados;
+
         }
         catch (DbException ex) { throw new InvalidOperationException($"Erro ao obter matricula pelo Aluno de Id {alunoId}: {ex.Message}", ex); }
     }

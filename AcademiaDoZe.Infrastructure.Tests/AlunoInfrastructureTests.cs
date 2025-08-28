@@ -42,7 +42,7 @@ public class AlunoInfrastructureTests : TestBase
     [Fact]
     public async Task Aluno_ObterPorCpf_Atualizar()
     {
-        var _cpf = "12346678952";
+        var _cpf = "12345678901";
         Arquivo arquivo = Arquivo.Criar(new byte[] { 1, 2, 3 });
 
         var repoAlunoObterPorCpf = new AlunoRepository(ConnectionString, DatabaseType);

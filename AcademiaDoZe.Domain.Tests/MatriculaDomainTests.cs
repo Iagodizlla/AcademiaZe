@@ -24,7 +24,7 @@ public class MatriculaDomainTests
             "Casa",                          // Complemento
             "Senha@123",                     // Senha válida
             GetValidArquivo()               // Arquivo (foto)
-        );
+    );
 
     [Fact]
     public void CriarMatricula_Valido_NaoDeveLancarExcecao()
