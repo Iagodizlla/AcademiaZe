@@ -8,12 +8,12 @@ namespace AcademiaDoZe.Domain.Entities;
 public class Aluno : Pessoa
 {
     // construtor privado para evitar instância direta
-    private Aluno(string nome, string cpf, DateOnly dataNascimento, string telefone, string email, Logradouro endereco,
+    private Aluno(int id, string nome, string cpf, DateOnly dataNascimento, string telefone, string email, Logradouro endereco,
         string numero, string complemento, string senha, Arquivo foto)
-    : base(nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto)
+    : base(id, nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto)
     { }
     // método de fábrica, ponto de entrada para criar um objeto válido
-    public static Aluno Criar(string nome, string cpf, DateOnly dataNascimento, string telefone, string email,
+    public static Aluno Criar(int id, string nome, string cpf, DateOnly dataNascimento, string telefone, string email,
         Logradouro endereco, string numero, string complemento, string senha, Arquivo foto)
     {
         // Validações e normalizações
@@ -25,7 +25,7 @@ public class Aluno : Pessoa
         cpf = NormalizadoService.LimparEDigitos(cpf);
         if (cpf.Length != 11) throw new DomainException("CPF_DIGITOS");
         if (dataNascimento == default) throw new DomainException("DATA_NASCIMENTO_OBRIGATORIO");
-        //if (dataNascimento > DateOnly.FromDateTime(DateTime.Today.AddYears(-12))) throw new DomainException("DATA_NASCIMENTO_MINIMA_INVALIDA");
+        if (dataNascimento > DateOnly.FromDateTime(DateTime.Today.AddYears(-12))) throw new DomainException("DATA_NASCIMENTO_MINIMA_INVALIDA");
         if (NormalizadoService.TextoVazioOuNulo(telefone)) throw new DomainException("TELEFONE_OBRIGATORIO");
         telefone = NormalizadoService.LimparEDigitos(telefone);
         if (telefone.Length != 11) throw new DomainException("TELEFONE_DIGITOS");
@@ -43,7 +43,7 @@ public class Aluno : Pessoa
         // Cpf único - vamos depender da persistência dos dados
 
         // criação e retorno do objeto
-        return new Aluno(nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto);
+        return new Aluno(id, nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto);
 
     }
 }

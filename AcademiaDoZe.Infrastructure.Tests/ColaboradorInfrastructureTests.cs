@@ -29,6 +29,7 @@ public class ColaboradorInfrastructureTests : TestBase
         var cpfExistente = await repoColaboradorCpf.CpfJaExiste(_cpf);
         Assert.False(cpfExistente, "CPF já existe no banco de dados.");
         var colaborador = Colaborador.Criar(
+            1,
         "zé",
         _cpf,
 
@@ -66,7 +67,7 @@ public class ColaboradorInfrastructureTests : TestBase
 
         // criar novo colaborador com os mesmos dados, editando o que quiser
         var colaboradorAtualizado = Colaborador.Criar(
-
+        colaboradorExistente.Id,
         "zé dos testes 123",
         colaboradorExistente.Cpf,
         colaboradorExistente.DataNascimento,

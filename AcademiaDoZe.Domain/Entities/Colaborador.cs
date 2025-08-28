@@ -13,18 +13,18 @@ public class Colaborador : Pessoa
     public EColaboradorTipo Tipo { get; private set; }
     public EColaboradorVinculo Vinculo { get; private set; }
     // construtor privado para evitar instância direta
-    private Colaborador(string nome, string cpf, DateOnly dataNascimento, string telefone, string email,
+    private Colaborador(int id, string nome, string cpf, DateOnly dataNascimento, string telefone, string email,
         Logradouro endereco, string numero, string complemento, string senha, Arquivo foto, DateOnly dataAdmissao,
         EColaboradorTipo tipo, EColaboradorVinculo
     vinculo)
-    : base(nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto)
+    : base(id, nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto)
     {
         DataAdmissao = dataAdmissao;
         Tipo = tipo;
         Vinculo = vinculo;
     }
     // método de fábrica, ponto de entrada para criar um objeto válido
-    public static Colaborador Criar(string nome, string cpf, DateOnly dataNascimento, string telefone, string email,
+    public static Colaborador Criar(int id, string nome, string cpf, DateOnly dataNascimento, string telefone, string email,
         Logradouro endereco, string numero, string complemento, string senha, Arquivo foto, DateOnly dataAdmissao,
         EColaboradorTipo tipo, EColaboradorVinculo vinculo)
     {
@@ -56,7 +56,7 @@ public class Colaborador : Pessoa
         if (tipo == EColaboradorTipo.Administrador && vinculo != EColaboradorVinculo.CLT) throw new DomainException("ADMINISTRADOR_CLT_INVALIDO");
         // Cpf único - vamos depender da persistência dos dados
         // criação e retorno do objeto
-        return new Colaborador(nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto,
+        return new Colaborador(id, nome, cpf, dataNascimento, telefone, email, endereco, numero, complemento, senha, foto,
             dataAdmissao, tipo, vinculo);
     }
 }

@@ -22,6 +22,7 @@ public class AlunoInfrastructureTests : TestBase
         Assert.False(cpfExistente, "CPF já existe no banco de dados.");
 
         var aluno = Aluno.Criar(
+            1,
             "Aluno Teste",
             _cpf,
             new DateOnly(2010, 10, 09),
@@ -51,6 +52,7 @@ public class AlunoInfrastructureTests : TestBase
         Assert.NotNull(alunoExistente);
 
         var alunoAtualizado = Aluno.Criar(
+            alunoExistente.Id,
             "Aluno Atualizado",
             alunoExistente.Cpf,
             alunoExistente.DataNascimento,

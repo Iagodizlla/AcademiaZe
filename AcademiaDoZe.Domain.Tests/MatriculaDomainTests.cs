@@ -9,11 +9,12 @@ namespace AcademiaDoZe.Domain.Tests;
 public class MatriculaDomainTests
 {
     private Logradouro GetValidLogradouro()
-    => Logradouro.Criar("12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
+    => Logradouro.Criar(7, "12345678", "Rua A", "Centro", "Cidade", "SP", "Brasil");
 
     private Arquivo GetValidArquivo() => Arquivo.Criar(new byte[1]);
 
     private Aluno GetValidAluno() => Aluno.Criar(
+            1,                               // Id
             "Iago Henrique",                  // Nome
             "111.111.111-11",                // CPF
             DateOnly.FromDateTime(DateTime.Today.AddYears(-18)), // Data de nascimento válida
@@ -29,6 +30,7 @@ public class MatriculaDomainTests
     [Fact]
     public void CriarMatricula_Valido_NaoDeveLancarExcecao()
     {
+        var id = 1;
         var aluno = GetValidAluno();
         var plano = EMatriculaPlano.Semestral;
         var dataInicio = DateOnly.FromDateTime(DateTime.Today);
@@ -38,7 +40,7 @@ public class MatriculaDomainTests
         var laudoMedico = GetValidArquivo();
         var observacoes = "Não posso sexta";
 
-        var matricula = Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudoMedico, observacoes);
+        var matricula = Matricula.Criar(id, aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudoMedico, observacoes);
 
         // Assert
         Assert.NotNull(matricula);
@@ -48,6 +50,7 @@ public class MatriculaDomainTests
     public void CriarMatricula_ComObjetivoVazio_DeveLancarExcecao()
     {
         // Arrange
+        var id = 1;
         var aluno = GetValidAluno();
         var plano = EMatriculaPlano.Semestral;
         var dataInicio = DateOnly.FromDateTime(DateTime.Today); // válido
@@ -59,7 +62,7 @@ public class MatriculaDomainTests
 
         // Act & Assert
         var exception = Assert.Throws<DomainException>(() =>
-            Matricula.Criar(aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudoMedico, observacoes)
+            Matricula.Criar(id, aluno, plano, dataInicio, dataFim, objetivo, restricoes, laudoMedico, observacoes)
         );
 
         Assert.Equal("OBJETIVO_OBRIGATORIO", exception.Message);

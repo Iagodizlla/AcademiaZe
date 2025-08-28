@@ -13,7 +13,7 @@ public class LogradouroInfrastructureTests : TestBase
         var _cep = "12345698";
         // Adicionar
 
-        var logradouro = Logradouro.Criar(_cep, "Rua dos Testes", "Bairro Teste", "Cidade Teste", "TS", "Pais teste");
+        var logradouro = Logradouro.Criar(8, _cep, "Rua dos Testes", "Bairro Teste", "Cidade Teste", "TS", "Pais teste");
 
         var repoLogradouroAdd = new LogradouroRepository(ConnectionString, DatabaseType);
         var logradouroInserido = await repoLogradouroAdd.Adicionar(logradouro);
@@ -33,7 +33,7 @@ public class LogradouroInfrastructureTests : TestBase
         Assert.NotNull(logradouroPorCep);
 
         // Atualizar
-        var logradouroAtualizado = Logradouro.Criar(_cep, "Rua Atualizada", "Bairro Atualizado", "Cidade Atualizada", "AT", "Pais atualizado");
+        var logradouroAtualizado = Logradouro.Criar(2, _cep, "Rua Atualizada", "Bairro Atualizado", "Cidade Atualizada", "AT", "Pais atualizado");
 
         // reflexão para definir o ID
 

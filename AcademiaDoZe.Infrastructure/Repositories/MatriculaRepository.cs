@@ -22,6 +22,7 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
             var aluno = await alunoRepository.ObterPorId(alunoId) ?? throw new InvalidOperationException($"Aluno com ID {alunoId} não encontrado.");
             // Cria o objeto Matricula usando o método de fábrica
             var matricula = Matricula.Criar(
+                id: Convert.ToInt32(reader["id_matricula"]),
                 alunoMatricula: aluno,
                 plano: (EMatriculaPlano)Convert.ToInt32(reader["plano"]),
                 dataInicio: DateOnly.FromDateTime(Convert.ToDateTime(reader["data_inicio"])),

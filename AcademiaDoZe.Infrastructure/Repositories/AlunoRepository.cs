@@ -23,6 +23,7 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
             var logradouro = await logradouroRepository.ObterPorId(logradouroId) ?? throw new InvalidOperationException($"Logradouro com ID {logradouroId} não encontrado.");
             // Cria o objeto Colaborador usando o método de fábrica
             var aluno = Aluno.Criar(
+                id: reader["id_aluno"] is DBNull ? 0 : Convert.ToInt32(reader["id_aluno"]),
             cpf: reader["cpf"].ToString()!,
             telefone: reader["telefone"].ToString()!,
             nome: reader["nome"].ToString()!,

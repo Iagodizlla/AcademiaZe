@@ -15,6 +15,7 @@ public class LogradouroRepository : BaseRepository<Logradouro>, ILogradouroRepos
         try
         {
             var logradouro = Logradouro.Criar(
+            id: Convert.ToInt32(reader["id_logradouro"]),
             cep: reader["cep"].ToString()!,
             nome: reader["nome"].ToString()!,
             bairro: reader["bairro"].ToString()!,

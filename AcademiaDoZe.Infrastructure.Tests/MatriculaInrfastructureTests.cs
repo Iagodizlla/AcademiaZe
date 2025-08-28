@@ -23,6 +23,7 @@ public class MatriculaInfrastructureTests : TestBase
         Assert.False(await repoAluno.CpfJaExiste(_cpf), "CPF já existe no banco.");
 
         var aluno = Aluno.Criar(
+            1, 
             "Aluno Teste",
             _cpf,
             new DateOnly(2010, 10, 09),
@@ -37,6 +38,7 @@ public class MatriculaInfrastructureTests : TestBase
         await repoAluno.Adicionar(aluno);
 
         var matricula = Matricula.Criar(
+            1, 
             aluno,
             EMatriculaPlano.Semestral,
             DateOnly.FromDateTime(DateTime.Today),
@@ -70,6 +72,7 @@ public class MatriculaInfrastructureTests : TestBase
 
         var arquivo = Arquivo.Criar(new byte[] { 1, 2, 3 });
         var matriculaAtualizada = Matricula.Criar(
+            1, 
             aluno,
             EMatriculaPlano.Anual,
             new DateOnly(2020, 05, 20),
