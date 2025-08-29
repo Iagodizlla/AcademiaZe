@@ -1,4 +1,5 @@
-﻿using AcademiaDoZe.Application.Enums;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Application.Enums;
 namespace AcademiaDoZe.Application.DependencyInjection;
 
 public class RepositoryConfig

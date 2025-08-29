@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿//Iago Henrique Schlemper
+using System.ComponentModel.DataAnnotations;
 namespace AcademiaDoZe.Application.Enums;
 
 [Flags]
