@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Infrastructure.Tests", "AcademiaDoZe.Infrastructure.Tests\AcademiaDoZe.Infrastructure.Tests.csproj", "{CF93EE13-D5ED-4A89-9BC2-AFFDAFCE3941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application2", "AcademiaDoZe.Application2\AcademiaDoZe.Application2.csproj", "{1ACF1000-6EF5-4BF3-B4EA-39B18F4F0364}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application", "AcademiaDoZe.Application2\AcademiaDoZe.Application.csproj", "{1ACF1000-6EF5-4BF3-B4EA-39B18F4F0364}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
