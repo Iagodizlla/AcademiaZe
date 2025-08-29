@@ -54,7 +54,7 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
             + "VALUES (@Aluno, @Colaborador, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes); "
             + "SELECT LAST_INSERT_ID();";
             await using var command = DbProvider.CreateCommand(query, connection);
-            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.ColaboradorMatricula.Id, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.AlunoMatricula.Id, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Colaborador", 1, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Plano", (int)entity.Plano, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
@@ -92,7 +92,7 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
             + "obs_restricao = @Observacoes_restricoes "
             + "WHERE id_matricula = @Id";
             await using var command = DbProvider.CreateCommand(query, connection);
-            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.ColaboradorMatricula.Id, DbType.String, _databaseType));
+            command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.AlunoMatricula.Id, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Colaborador", 1, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Plano", (int)entity.Plano, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio.ToString("yyyy-MM-dd"), DbType.String, _databaseType));

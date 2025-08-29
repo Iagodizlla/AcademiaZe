@@ -9,7 +9,7 @@ namespace AcademiaDoZe.Domain.Entities;
 public class Matricula : Entity
 {
     // encapsulamento das propriedades, aplicando imutabilidade
-    public Aluno ColaboradorMatricula { get; private set; }
+    public Aluno AlunoMatricula { get; private set; }
     public EMatriculaPlano Plano { get; private set; }
     public DateOnly DataInicio { get; private set; }
     public DateOnly DataFim { get; private set; }
@@ -23,7 +23,7 @@ public class Matricula : Entity
     : base()
     {
         Id = id;
-        ColaboradorMatricula = alunoMatricula;
+        AlunoMatricula = alunoMatricula;
         Plano = plano;
         DataInicio = dataInicio;
         DataFim = dataFim;
