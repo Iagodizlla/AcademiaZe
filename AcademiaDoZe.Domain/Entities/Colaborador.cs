@@ -44,7 +44,7 @@ public class Colaborador : Pessoa
         if (NormalizadoService.TextoVazioOuNulo(senha)) throw new DomainException("SENHA_OBRIGATORIO");
         senha = NormalizadoService.LimparEspacos(senha);
         if (NormalizadoService.ValidarFormatoSenha(senha)) throw new DomainException("SENHA_FORMATO");
-        // if (foto == null) throw new DomainException("FOTO_OBRIGATORIO");
+        if (foto == null) throw new DomainException("FOTO_OBRIGATORIO");
         if (endereco == null) throw new DomainException("LOGRADOURO_OBRIGATORIO");
         if (NormalizadoService.TextoVazioOuNulo(numero)) throw new DomainException("NUMERO_OBRIGATORIO");
         numero = NormalizadoService.LimparEspacos(numero);
