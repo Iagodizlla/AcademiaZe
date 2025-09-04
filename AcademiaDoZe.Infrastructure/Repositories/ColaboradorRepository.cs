@@ -23,7 +23,7 @@ public class ColaboradorRepository : BaseRepository<Colaborador>, IColaboradorRe
             var logradouro = await logradouroRepository.ObterPorId(logradouroId) ?? throw new InvalidOperationException($"Logradouro com ID {logradouroId} não encontrado.");
             // Cria o objeto Colaborador usando o método de fábrica
             var colaborador = Colaborador.Criar(
-            id: reader["id_aluno"] is DBNull ? 0 : Convert.ToInt32(reader["id_aluno"]),
+            id: reader["id_colaborador"] is DBNull ? 0 : Convert.ToInt32(reader["id_colaborador"]),
             cpf: reader["cpf"].ToString()!,
             telefone: reader["telefone"].ToString()!,
             nome: reader["nome"].ToString()!,
