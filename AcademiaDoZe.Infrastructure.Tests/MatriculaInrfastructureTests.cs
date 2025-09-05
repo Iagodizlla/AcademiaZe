@@ -18,7 +18,7 @@ public class MatriculaInfrastructureTests : TestBase
 
         var arquivo = Arquivo.Criar(new byte[] { 1, 2, 3 });
 
-        var _cpf = "11140628981";
+        var _cpf = "11140608981";
         var repoAluno = new AlunoRepository(ConnectionString, DatabaseType);
         Assert.False(await repoAluno.CpfJaExiste(_cpf), "CPF já existe no banco.");
 
@@ -62,7 +62,7 @@ public class MatriculaInfrastructureTests : TestBase
         var repoMatricula = new MatriculaRepository(ConnectionString, DatabaseType);
         var repoAluno = new AlunoRepository(ConnectionString, DatabaseType);
 
-        var aluno = await repoAluno.ObterPorCpf("11140628981");
+        var aluno = await repoAluno.ObterPorCpf("11140608981");
         Assert.NotNull(aluno);
 
         var matriculas = (await repoMatricula.ObterPorAluno(aluno!.Id)).ToList();
@@ -99,7 +99,7 @@ public class MatriculaInfrastructureTests : TestBase
         var repoMatricula = new MatriculaRepository(ConnectionString, DatabaseType);
         var repoAluno = new AlunoRepository(ConnectionString, DatabaseType);
 
-        var aluno = await repoAluno.ObterPorCpf("11140628981");
+        var aluno = await repoAluno.ObterPorCpf("11140608981");
         Assert.NotNull(aluno);
 
         var matriculas = (await repoMatricula.ObterPorAluno(aluno!.Id)).ToList();

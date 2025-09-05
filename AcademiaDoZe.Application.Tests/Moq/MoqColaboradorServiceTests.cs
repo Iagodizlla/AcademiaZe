@@ -3,7 +3,7 @@ using AcademiaDoZe.Application.Enums;
 using AcademiaDoZe.Application.Interfaces;
 using Moq;
 
-namespace AcademiaDoZe.Application.Tests;
+namespace AcademiaDoZe.Application.Tests.Moq;
 
 public class MoqColaboradorServiceTests
 {
