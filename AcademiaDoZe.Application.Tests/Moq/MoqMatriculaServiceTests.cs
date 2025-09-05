@@ -1,8 +1,6 @@
-﻿using AcademiaDoZe.Application.DTOs;
+﻿//Iago Henrique Schlemper
+using AcademiaDoZe.Application.DTOs;
 using AcademiaDoZe.Application.Interfaces;
-using AcademiaDoZe.Application.Services;
-using AcademiaDoZe.Domain.Entities;
-using AcademiaDoZe.Domain.Enums;
 using Moq;
 
 namespace AcademiaDoZe.Application.Tests;
