@@ -2,7 +2,7 @@
 using AcademiaDoZe.Application.Enums;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AcademiaDoZe.Application.Tests.DependencyInjection;
+namespace AcademiaDoZe.Application.Tests;
 
 public static class DependencyInjection
 {

@@ -33,12 +33,13 @@ public static class ApplicationDependencyInjection
             var config = provider.GetRequiredService<RepositoryConfig>();
             return (Func<IColaboradorRepository>)(() => new ColaboradorRepository(config.ConnectionString, (DatabaseType)config.DatabaseType));
         });
-        /*
+        
         services.AddTransient(provider =>
         {
         var config = provider.GetRequiredService<RepositoryConfig>();
         return (Func<IAlunoRepository>)(() => new AlunoRepository(config.ConnectionString, (DatabaseType)config.DatabaseType));
         });
+        /*
         services.AddTransient(provider =>
         {
         var config = provider.GetRequiredService<RepositoryConfig>();
