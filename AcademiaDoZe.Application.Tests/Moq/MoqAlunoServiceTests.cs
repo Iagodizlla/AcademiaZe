@@ -4,7 +4,7 @@ using AcademiaDoZe.Application.Interfaces;
 using AcademiaDoZe.Domain.Entities;
 using Moq;
 
-namespace AcademiaDoZe.Application.Tests.Moq;
+namespace AcademiaDoZe.Application.Tests;
 
 public class MoqAlunoServiceTests
 {

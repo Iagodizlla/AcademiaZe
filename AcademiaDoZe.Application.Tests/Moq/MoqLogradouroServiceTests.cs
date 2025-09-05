@@ -2,7 +2,7 @@
 using AcademiaDoZe.Application.Interfaces;
 using Moq;
 
-namespace AcademiaDoZe.Application.Tests.Moq;
+namespace AcademiaDoZe.Application.Tests;
 
 public class MoqLogradouroServiceTests
 {
