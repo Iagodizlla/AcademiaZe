@@ -41,7 +41,7 @@ public class AlunoApplicationTests
             Cpf = _cpf,
             DataNascimento = DateOnly.FromDateTime(DateTime.Today.AddYears(-20)),
             Telefone = "11999999999",
-            Email = "Aluno@teste.com",
+            Email = "aluno@teste.com",
             Endereco = logradouro,
             Numero = "100",
             Complemento = "Apto 1",

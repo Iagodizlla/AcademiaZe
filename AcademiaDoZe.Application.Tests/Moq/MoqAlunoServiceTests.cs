@@ -20,11 +20,11 @@ public class MoqAlunoServiceTests
         return new AlunoDTO
         {
             Id = id,
-            Nome = "Colaborador Teste",
+            Nome = "Aluno Teste",
             Cpf = "12345678901",
             DataNascimento = DateOnly.FromDateTime(DateTime.Now.AddYears(-30)),
             Telefone = "11999999999",
-            Email = "colaborador@teste.com",
+            Email = "aluno@teste.com",
             Endereco = new LogradouroDTO { Id = 1, Cep = "12345678", Nome = "Rua Teste", Bairro = "Centro", Cidade = "São Paulo", Estado = "SP", Pais = "Brasil" },
             Numero = "100",
             Complemento = "Apto 101",
