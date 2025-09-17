@@ -34,39 +34,7 @@
   - Cadastrar, editar, excluir e visualizar colaboradores
   - Gerenciar funções e permissões dentro do sistema
 
-- **Acessos**
-  - Registrar entradas e saídas de alunos e colaboradores
-  - Consultar relatórios de frequência, permanência e horários mais procurados
-
 ---
-
-## Como utilizar
-
-1. Clone o repositório ou baixe o código fonte.
-2. Abra o terminal ou o prompt de comando e navegue até a pasta raiz
-3. Utilize o comando abaixo para restaurar as dependências do projeto.
-
-```
-dotnet restore
-```
-
-4. Em seguida, compile a solução utilizando o comando:
-   
-```
-dotnet build --configuration Release
-```
-
-5. Para executar o projeto compilando em tempo real
-   
-```
-dotnet run --project AcademiaDoZe.ConsoleApp
-```
-
-6. Para executar o arquivo compilado, navegue até a pasta `./AcademiaDoZe.WebApp/bin/Release/net8.0/` e execute o arquivo:
-   
-```
-AcademiaDoZe.ConsoleApp.exe
-```
 
 ## Requisitos
 
