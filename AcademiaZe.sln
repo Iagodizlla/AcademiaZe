@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application.Tests", "AcademiaDoZe.Application.Tests\AcademiaDoZe.Application.Tests.csproj", "{892C0DE3-1C0D-461C-B969-7BAF93F68828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application", "AcademiaDoZe.Application\AcademiaDoZe.Application.csproj", "{6AD920F6-130A-FE18-7A30-C8F9C23CBF73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Presentation.AppMaui", "AcademiaDoZe.Presentation.AppMaui\AcademiaDoZe.Presentation.AppMaui.csproj", "{E9C36DD8-9C09-0AD0-53F0-0929AF291247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Presentation.AppMaui", "D:\Users\iagod\Source\Repos\AcademiaDoZeRoberto\AcademiaDoZe.Presentation.AppMaui\AcademiaDoZe.Presentation.AppMaui.csproj", "{AFA42161-8103-CBD6-45B4-2ECEB04F7FA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application", "AcademiaDoZe.Application\AcademiaDoZe.Application.csproj", "{6AD920F6-130A-FE18-7A30-C8F9C23CBF73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +43,14 @@ Global
 		{892C0DE3-1C0D-461C-B969-7BAF93F68828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892C0DE3-1C0D-461C-B969-7BAF93F68828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{892C0DE3-1C0D-461C-B969-7BAF93F68828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9C36DD8-9C09-0AD0-53F0-0929AF291247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C36DD8-9C09-0AD0-53F0-0929AF291247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C36DD8-9C09-0AD0-53F0-0929AF291247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C36DD8-9C09-0AD0-53F0-0929AF291247}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6AD920F6-130A-FE18-7A30-C8F9C23CBF73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AD920F6-130A-FE18-7A30-C8F9C23CBF73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AD920F6-130A-FE18-7A30-C8F9C23CBF73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AD920F6-130A-FE18-7A30-C8F9C23CBF73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFA42161-8103-CBD6-45B4-2ECEB04F7FA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFA42161-8103-CBD6-45B4-2ECEB04F7FA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFA42161-8103-CBD6-45B4-2ECEB04F7FA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFA42161-8103-CBD6-45B4-2ECEB04F7FA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
