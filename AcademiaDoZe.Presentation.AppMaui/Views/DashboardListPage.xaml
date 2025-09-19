@@ -24,13 +24,12 @@ Title="{Binding Title}">
             <Grid Grid.Row="1" RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" RowSpacing="15" ColumnSpacing="15">
 
                 <!-- Card Logradouros -->
-
                 <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardBorder}" Margin="15,10">
-
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToLogradourosCommand}"/>
                     </Border.GestureRecognizers>
                     <StackLayout Spacing="10">
+                        <Label FontFamily="MaterialIcons" Text="&#xe7f1;" Style="{StaticResource SubHeadline}" HorizontalTextAlignment="Center" />
                         <Label Text="{Binding TotalLogradouros}" Style="{StaticResource SubHeadline}"/>
                         <Label Text="Logradouros" HorizontalTextAlignment="Center"/>
                     </StackLayout>
