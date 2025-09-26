@@ -9,15 +9,27 @@ Title="Academia do Zé">
 <ShellContentTitle="Home" ContentTemplate="{DataTemplate views:MainPage}" Route="MainPage" />
 -->
     <FlyoutItem Title="Dashboard">
-        <!-- Icon="home_icon.png" -->
+        <!-- Icon="dome_icon.png" -->
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe58c;" />
+        </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate views:DashboardListPage}" Route="dashboard" />
     </FlyoutItem>
+    
     <FlyoutItem Title="Logradouros">
         <!-- Icon="location_icon.png" -->
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe7f1;" />
+        </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate views:LogradouroListPage}" Route="logradouros" />
     </FlyoutItem>
+    
     <FlyoutItem Title="Configurações">
-        <ShellContent ContentTemplate="{DataTemplate views:ConfigPage}" Route="configuracoes"/>
+        <!-- Icon="config_icon.png" -->
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe8b8;" />
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate views:ConfigPage}" Route="configuracoes" />
     </FlyoutItem>
     <!--
 <TabBar>
