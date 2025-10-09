@@ -23,7 +23,15 @@ Title="Academia do Zé">
         </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate views:LogradouroListPage}" Route="logradouros" />
     </FlyoutItem>
-    
+
+    <FlyoutItem Title="Colaboradores">
+        <!-- Icon="config_icon.png" -->
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xf8e4;" />
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate views:ColaboradorListPage}" Route="colaboradores" />
+    </FlyoutItem>
+
     <FlyoutItem Title="Configurações">
         <!-- Icon="config_icon.png" -->
         <FlyoutItem.Icon>
