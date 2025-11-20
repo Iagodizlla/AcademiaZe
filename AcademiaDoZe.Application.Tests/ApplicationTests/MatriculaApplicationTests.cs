@@ -9,7 +9,7 @@ namespace AcademiaDoZe.Application.Tests;
 public class MatriculaApplicationTests
 {
     // Configurações de conexão (iguais às que você já usa)
-    const string connectionString = "Server=localhost;Database=db_academia_do_ze;User Id=root;Password=lilica123@;";
+    const string connectionString = "Server=localhost;Database=db_academia_do_ze;User Id=root;Password=abcBolinhas12345";
     const EAppDatabaseType databaseType = EAppDatabaseType.MySql;
 
     [Fact(Timeout = 60000)]

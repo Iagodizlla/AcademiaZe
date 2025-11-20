@@ -17,7 +17,6 @@ Title="{Binding Title}">
             <!-- CPF Section -->
 
             <Border Style="{StaticResource CardBorder}" Margin="15,10">
-
                 <StackLayout Spacing="5">
                     <Label Text="CPF"/>
                     <Grid ColumnDefinitions="*,Auto">

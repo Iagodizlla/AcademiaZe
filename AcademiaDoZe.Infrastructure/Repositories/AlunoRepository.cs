@@ -78,6 +78,8 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
     }
     public async Task<Aluno?> ObterPorCpf(string cpf)
     {
+        // Garante que o CF está no formato correto (apenas dígitos)
+        cpf = new string(cpf.Where(char.IsDigit).ToArray());
         try
         {
             await using var connection = await GetOpenConnectionAsync();
@@ -87,7 +89,7 @@ public class AlunoRepository : BaseRepository<Aluno>, IAlunoRepository
             using var reader = await command.ExecuteReaderAsync();
             return await reader.ReadAsync() ? await MapAsync(reader) : null;
         }
-        catch (DbException ex) { throw new InvalidOperationException($"Erro ao obter aluno pelo CPF {cpf}: {ex.Message}", ex); }
+        catch (DbException ex) { throw new InvalidOperationException($"ERRO_OBTER_ALUNO_POR_CPF_{cpf}", ex); }
     }
     public override async Task<Aluno> Atualizar(Aluno entity)
     {

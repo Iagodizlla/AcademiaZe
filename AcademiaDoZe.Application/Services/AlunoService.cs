@@ -98,6 +98,7 @@ public class AlunoService : IAlunoService
     {
         if (string.IsNullOrWhiteSpace(cpf))
             throw new ArgumentException("CPF não pode ser vazio.", nameof(cpf));
+        // Remove formatação do CPF, mantendo apenas dígitos
         cpf = new string([.. cpf.Where(char.IsDigit)]);
         var aluno = await _repoFactory().ObterPorCpf(cpf);
         return (aluno != null) ? aluno.ToDto() : null!;

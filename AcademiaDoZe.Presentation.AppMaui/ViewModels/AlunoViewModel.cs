@@ -40,7 +40,7 @@ namespace AcademiaDoZe.Presentation.AppMaui.ViewModels
         {
             _alunoService = alunoService;
             _logradouroService = logradouroService;
-            Title = "Detalhes do Colaborador";
+            Title = "Detalhes do Aluno";
         }
 
         /* métodos de comandos */

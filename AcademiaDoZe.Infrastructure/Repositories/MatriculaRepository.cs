@@ -47,15 +47,14 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
         {
             await using var connection = await GetOpenConnectionAsync();
             string query = _databaseType == DatabaseType.SqlServer
-            ? $"INSERT INTO {TableName} (aluno_id, colaborador_id, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
+            ? $"INSERT INTO {TableName} (aluno_i, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
             + "OUTPUT INSERTED.id_matricula "
-            + "VALUES (@Aluno, @Colaborador, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes);"
-            : $"INSERT INTO {TableName} (aluno_id, colaborador_id, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
-            + "VALUES (@Aluno, @Colaborador, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes); "
+            + "VALUES (@Aluno, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes);"
+            : $"INSERT INTO {TableName} (aluno_id, plano, data_inicio, data_fim, objetivo, restricao_medica, laudo_medico, obs_restricao) "
+            + "VALUES (@Aluno, @Plano, @Data_inicio, @Data_fim, @Objetivo, @Restricoes_medicas, @Laudo_medico, @Observacoes_restricoes); "
             + "SELECT LAST_INSERT_ID();";
             await using var command = DbProvider.CreateCommand(query, connection);
             command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.AlunoMatricula.Id, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Colaborador", 1, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Plano", (int)entity.Plano, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
@@ -82,7 +81,6 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
             await using var connection = await GetOpenConnectionAsync();
             string query = $"UPDATE {TableName} "
             + "SET aluno_id = @Aluno, "
-            + "colaborador_id = @Colaborador,"
             + "plano = @Plano, "
             + "data_inicio = @Data_inicio, "
             + "data_fim = @Data_fim, "
@@ -93,7 +91,6 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
             + "WHERE id_matricula = @Id";
             await using var command = DbProvider.CreateCommand(query, connection);
             command.Parameters.Add(DbProvider.CreateParameter("@Aluno", entity.AlunoMatricula.Id, DbType.String, _databaseType));
-            command.Parameters.Add(DbProvider.CreateParameter("@Colaborador", 1, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Plano", (int)entity.Plano, DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Data_inicio", entity.DataInicio.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
             command.Parameters.Add(DbProvider.CreateParameter("@Data_fim", entity.DataFim.ToString("yyyy-MM-dd"), DbType.String, _databaseType));
@@ -149,24 +146,29 @@ public class MatriculaRepository : BaseRepository<Matricula>, IMatriculaReposito
         }
     }
 
-    public async Task<IEnumerable<Matricula>?> ObterPorAluno(int alunoId)
+    public async Task<Matricula?> ObterPorAluno(int alunoId)
     {
         try
         {
             await using var connection = await GetOpenConnectionAsync();
             string query = $"SELECT * FROM {TableName} WHERE aluno_id = @Aluno";
+
             await using var command = DbProvider.CreateCommand(query, connection);
             command.Parameters.Add(DbProvider.CreateParameter("@Aluno", alunoId, DbType.String, _databaseType));
-            using var reader = await command.ExecuteReaderAsync();
-            var resultados = new List<Matricula>();
-            while (await reader.ReadAsync())
-            {
-                resultados.Add(await MapAsync(reader));
-            }
-            return resultados;
 
+            using var reader = await command.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+                return await MapAsync(reader);
+            }
+
+            return null; // Nenhuma matrícula encontrada
         }
-        catch (DbException ex) { throw new InvalidOperationException($"Erro ao obter matricula pelo Aluno de Id {alunoId}: {ex.Message}", ex); }
+        catch (DbException ex)
+        {
+            throw new InvalidOperationException($"Erro ao obter matrícula pelo Aluno de Id {alunoId}: {ex.Message}", ex);
+        }
     }
 
     public async Task<IEnumerable<Matricula>> ObterVencendoEmDias(int dias)

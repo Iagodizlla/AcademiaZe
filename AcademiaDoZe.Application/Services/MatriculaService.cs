@@ -77,10 +77,10 @@ public class MatriculaService : IMatriculaService
 
     }
 
-    public async Task<IEnumerable<MatriculaDTO>> ObterPorAlunoIdAsync(int alunoId)
+    public async Task<AlunoDTO> ObterPorAlunoIdAsync(int alunoId)
     {
-        var matriculas = await _repoFactory().ObterPorAluno(alunoId);
-        return matriculas.Select(m => m.ToDto());
+        var matricula = await _repoFactory().ObterPorAluno(alunoId);
+        return matricula != null ? matricula.AlunoMatricula.ToDto() : null!;
     }
 
     public async Task<IEnumerable<MatriculaDTO>> ObterAtivasAsync(int alunoId = 0)

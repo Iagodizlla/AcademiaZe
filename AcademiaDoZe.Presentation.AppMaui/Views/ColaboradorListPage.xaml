@@ -153,7 +153,7 @@ VerticalOptions="Center"/>
     <!-- Span conforme OnIdiom - utilizando objeto filho -->
 
     <!-- lista ou grade -->
-    <GridItemsLayout.Span>
+    <!--<GridItemsLayout.Span>
 
         <OnIdiom x:TypeArguments="x:Int32">
             <OnIdiom.Phone>1</OnIdiom.Phone>
@@ -162,6 +162,6 @@ VerticalOptions="Center"/>
             <OnIdiom.Desktop>3</OnIdiom.Desktop>
             <OnIdiom.TV>4</OnIdiom.TV>
         </OnIdiom>
-    </GridItemsLayout.Span>
+    </GridItemsLayout.Span>-->
 
 </ContentPage>
